@@ -1,6 +1,3 @@
-
-
-
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -29,21 +26,21 @@ spec:
                value: eureka-server
              - name: PORT
                value: "8761"
-             - name: SPRING_PROFILES_ACTIVE
-               valueFrom:
-                configMapKeyRef:
-                  name: config-service
-                  key: spring_profile
-             - name: EUREKA_SERVER_ADDRESS
-               valueFrom:
-                configMapKeyRef:
-                  name: config-service
-                  key: eureka_service_address
-             # - name: SERVICE_NAME
-             #   valueFrom:
-             #    configMapKeyRef:
-             #      name: config-service
-             #      key: service_name
+#             - name: SPRING_PROFILES_ACTIVE
+#               valueFrom:
+#                configMapKeyRef:
+#                  name: config-service
+#                  key: spring_profile
+#             - name: EUREKA_SERVER_ADDRESS
+#               valueFrom:
+#                configMapKeyRef:
+#                  name: config-service
+#                  key: eureka_service_address
+#             - name: SERVICE_NAME
+#               valueFrom:
+#                configMapKeyRef:
+#                  name: config-service
+#                  key: service_name
 
 
 
@@ -76,10 +73,3 @@ spec:
   # with an External IP address - *Only supported
   # by some cloud providers*
   type: LoadBalancer
-
-
-
-
-
-
-   
