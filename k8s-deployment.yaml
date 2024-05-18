@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: parent-project
 spec:
-  serviceName: "parent-project"
+#  serviceName: "parent-project"
   replicas: 1
   selector:
     matchLabels:
