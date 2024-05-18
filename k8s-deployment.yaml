@@ -39,11 +39,11 @@ spec:
                 configMapKeyRef:
                   name: config-service
                   key: eureka_service_address
-             - name: SERVICE_NAME
-               valueFrom:
-                configMapKeyRef:
-                  name: config-service
-                  key: service_name
+             # - name: SERVICE_NAME
+             #   valueFrom:
+             #    configMapKeyRef:
+             #      name: config-service
+             #      key: service_name
 
 
 
