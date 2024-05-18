@@ -1,0 +1,85 @@
+
+
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: parent-project
+spec:
+  serviceName: "parent-project"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: parent-project
+  template:
+    metadata:
+      labels:
+        app: parent-project
+    spec:
+      imagePullSecrets:
+      - name: aig-ecr-secret
+      containers:
+        - name: eureka-server
+          image: rohitlodhi/eureka-server
+          imagePullPolicy: Always
+          env:
+#             - name: SPRING_PROFILES_ACTIVE
+#               value: docker
+             - name: EUREKA_SERVER_HOST
+               value: eureka-server
+             - name: PORT
+               value: "8761"
+             - name: SPRING_PROFILES_ACTIVE
+               valueFrom:
+                configMapKeyRef:
+                  name: config-service
+                  key: spring_profile
+             - name: EUREKA_SERVER_ADDRESS
+               valueFrom:
+                configMapKeyRef:
+                  name: config-service
+                  key: eureka_service_address
+             - name: SERVICE_NAME
+               valueFrom:
+                configMapKeyRef:
+                  name: config-service
+                  key: service_name
+
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  # Unique key of the Service instance
+  name: parent-project
+  labels:
+    app: parent-project
+spec:
+  ports:
+    # Accept traffic sent to port 80
+    - name: eureka-server
+      port: 8761
+      targetPort: 8761
+#    - name: http-authentication
+#      port: 8881
+#      targetPort: 8881
+      
+      
+      
+  selector:
+    # Loadbalance traffic across Pods matching
+    # this label selector
+    app: parent-project
+  # Create an HA proxy in the cloud provider
+  # with an External IP address - *Only supported
+  # by some cloud providers*
+  type: LoadBalancer
+
+
+
+
+
+
+   
