@@ -16,8 +16,8 @@ spec:
       labels:
         app: parent-project
     spec:
-      imagePullSecrets:
-      - name: aig-ecr-secret
+#      imagePullSecrets:
+#      - name: aig-ecr-secret
       containers:
         - name: eureka-server
           image: rohitlodhi/eureka-server
